@@ -66,10 +66,6 @@ function retweetPost(id){
 }
 
 
-
-
-
-
 async function main(){
     try{
         const params = readParams();
