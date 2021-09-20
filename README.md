@@ -1,3 +1,3 @@
 # twitter-bot-for-fun
 
-ola
+This is a bot that replies to people that say certain words.
