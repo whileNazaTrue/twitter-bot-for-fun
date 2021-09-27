@@ -4,6 +4,7 @@ const twit = require('./twit');
 const fs = require('fs');
 const path = require('path');
 const T = require("./twit");
+const { userInfo } = require("os");
 const paramsPath = path.join(__dirname, 'params.json');
 
 
@@ -67,13 +68,16 @@ function retweetPost(id){
     });
 }
 
-function replyPost(id){
-    let textToReply = "Testing reply feature ";
+function replyPost(id,screenName){
+    let textToReply = "Testing reply feature @"+screenName;
+    
+    
     return new Promise ((resolve,reject) =>{
         let params={
             id,
         };
-        twit.post("statuses/update",{status: textToReply, in_reply_to_status_id: id},(err,data) => {
+        
+        twit.post("statuses/update",{status: textToReply, in_reply_to_status_id: params.id},(err,data) => {
             if (err){
                 console.log("Error! Couldnt reply.");
                 return reject(err);
@@ -84,7 +88,7 @@ function replyPost(id){
 }
 
 function pickRandomImg(){
-    return Math.floor(Math.random()* 4);
+    return Math.floor(Math.random()* 7);
 }
 
 async function uploadRandomImg(id){
@@ -114,7 +118,7 @@ async function uploadRandomImg(id){
     })
 }
 
-async function uploadRandomImgResponse(id, replyTweet){
+async function uploadRandomImgResponse(id,screenName){
 
 
     let image_path = path.join(__dirname, "/images/" + pickRandomImg() + ".jpg")
@@ -139,7 +143,7 @@ async function uploadRandomImgResponse(id, replyTweet){
                 console.log("Uploaded. Now tweeting...");
                 twit.post("media/metadata/create",meta_params,(err,data) =>{
                     if (!err){
-                        let pararams = {status:"@" + replyTweet.user.screen_name + ", here is your credit score", media_ids: [mediaIdStr]}
+                        let pararams = {status:"Here is your credit score @"+screenName, media_ids: [mediaIdStr],params,in_reply_to_status_id:id}
                         twit.post("statuses/update", pararams,(err,data) =>{
                             if(err){
                                 console.log("Error");
@@ -168,7 +172,9 @@ async function main(){
         for await(let tweet of tweets){
             try{
                 await likePost(tweet.id_str);
-                await uploadRandomImgResponse(tweet.id_str);
+                let screenName = tweet.user.screen_name;
+                //await replyPost(tweet.id_str,screenName);
+                await uploadRandomImgResponse(tweet.id_str,screenName);
                 console.log('Successfully liked and replied tweet ' + tweet.id_str);
                 
             }catch(e){
