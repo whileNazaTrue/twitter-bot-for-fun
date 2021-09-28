@@ -4,5 +4,8 @@
     "fs": "^0.0.1-security",
     "module": "^1.2.5",
     "twit": "^2.2.11"
-  }
+  },
+  "scripts": {
+    "start": "node index.js"
+    }
 }
