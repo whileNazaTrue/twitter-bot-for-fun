@@ -6,6 +6,6 @@
     "twit": "^2.2.11"
   },
   "scripts": {
-    "start": "node ../twitter-bot/index.js"
+    "start": "node /twitter-bot/index.js"
     }
 }
