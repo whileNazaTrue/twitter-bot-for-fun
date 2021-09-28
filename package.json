@@ -6,6 +6,6 @@
     "twit": "^2.2.11"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node ../index.js"
     }
 }
