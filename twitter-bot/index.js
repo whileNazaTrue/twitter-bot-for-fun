@@ -24,7 +24,7 @@ function getTweets(since_id){
     return new Promise((resolve,reject) => {
         let params = {
             q: "@BotSocialCredit",
-            count: 25,
+            count: 10,
         };
         if (since_id){
             params.since_id = since_id;
