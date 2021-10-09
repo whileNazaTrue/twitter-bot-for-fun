@@ -88,7 +88,7 @@ function replyPost(id,screenName){
 }
 
 function pickRandomImg(){
-    return Math.floor(Math.random()* 11);
+    return Math.floor(Math.random()* 20);
 }
 
 async function uploadRandomImg(id){
