@@ -142,7 +142,7 @@ async function uploadRandomImgResponse(id,screenName){
                 let meta_params = {media_id:mediaIdStr,altText:{text:altText}}
                 console.log("Uploaded. Now tweeting...");
                 twit.post("media/metadata/create",meta_params,(err,data) =>{
-                    if (!err){
+                    if (!err && screenName != "BotSocialCredit"){
                         let pararams = {status:"Here is your credit score @"+screenName, media_ids: [mediaIdStr],params,in_reply_to_status_id:id}
                         twit.post("statuses/update", pararams,(err,data) =>{
                             if(err){
